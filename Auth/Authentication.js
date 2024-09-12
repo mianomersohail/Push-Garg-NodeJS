@@ -13,10 +13,10 @@ function SetUser(user){
     return jwt.sign(UserData, secret, { expiresIn: '2h' });
 
 }
-function GetUser(token){
+async function GetUser(token){
     if(!token)return(null)
         try {
-            return jwt.verify(token, secret);
+            return await  jwt.verify(token, secret);
         } catch (error) {
             console.error("Invalid or expired token:", error.message);
               console.log(error)
