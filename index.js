@@ -17,7 +17,6 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 //MONDO DB CONNECTION 
 const Mongo=new MondoDb();
 if(Mongo.testconnection()!=1){
