@@ -7,7 +7,6 @@ const cookieparser=require('cookie-parser')
 const port=process.env.PORT || 3002
 const MondoDb=require('./config/MongoDb-Connection')
 app.use(cors())
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser())

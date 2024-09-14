@@ -6,9 +6,13 @@ class UserServices{
     async login(email,password){
         try{
         const LoginResult=await LoginSchemas.findOne({email,password})
-       if(LoginResult){
+       if(LoginResult && LoginResult.role=='Admin'){
         const token=await SetUser(LoginResult)
-        return {success:true,message:'Authorized',token}
+        return {success:true,message:'Authorized',token,role:"Admin"}
+       }
+       if(LoginResult && LoginResult.role=='User'){
+        const token=await SetUser(LoginResult)
+        return {success:true,message:'Authorized',token,role:"User"}
        }
        else{
         return {success:false,message:'Un-Auhorized'}
