@@ -1,11 +1,16 @@
 const {GetUser}=require('../Auth/Authentication')
 async function LoginMiddleware(req,res,next){
     try{
-    const token=req.body.cookies;
+        const token = req.headers['authorization']?.split(' ')[1]; // Extract the token from 'Bearer token'
+        
+    console.log(token)
     if(!token){
         return next()
     }
+
+
     const checktoken=await GetUser(token)
+    console.log(checktoken)
     if(!checktoken){
         return next()
     }

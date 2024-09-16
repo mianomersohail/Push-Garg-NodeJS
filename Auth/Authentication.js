@@ -8,7 +8,8 @@ const secret = generateSecret();
 function SetUser(user){
     const UserData={
         email:user.email,
-        id:user.id
+        id:user.id,
+        role:user.role
     }
     return jwt.sign(UserData, secret, { expiresIn: '2h' });
 

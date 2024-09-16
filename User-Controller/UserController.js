@@ -3,8 +3,10 @@ const UserService=new UserServices()
 class UserController{
     constructor(){
     }
+
     async login(req,res){
         try{
+            console.log('Req')
         const{email,password}=req.body;
         if(!email){
             return (res.status(400).json({message:'Plz-Login'}))
@@ -12,22 +14,22 @@ class UserController{
         const Result=await UserService.login(email,password);
         if(Result.success && Result.role=='Admin'){
             const {token,message,role}=Result;
-            res.cookie('token', token, {
-                httpOnly: true, // Prevent client-side JS from accessing the token
-                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-                maxAge: 3600000 // 1 hour in milliseconds
-            });
+            // res.cookie('token', token, {
+            //     httpOnly: true, // Prevent client-side JS from accessing the token
+            //     secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+            //     maxAge: 3600000 // 1 hour in milliseconds
+            // });
     
             // Return the user data and a success message
-            return res.status(200).json({ message,role});
+            return res.status(200).json({ message,role,token:Result.token});
         }
         if(Result.success && Result.role=='User'){
-            res.cookie('token', Result.token, {
-                httpOnly: true, // Prevent client-side JS from accessing the token
-                secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-                maxAge: 3600000 // 1 hour in milliseconds
-            });
-            return res.status(200).json({message:Result.message,role:Result.role})
+            // res.cookie('token', Result.token, {
+            //     httpOnly: true, // Prevent client-side JS from accessing the token
+            //     secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+            //     maxAge: 3600000 // 1 hour in milliseconds
+            // });
+            return res.status(200).json({message:Result.message,role:Result.role,token:Result.token})
 
         }
         else{
