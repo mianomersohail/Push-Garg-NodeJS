@@ -6,6 +6,7 @@ function generateSecret() {
 const secret = generateSecret(); 
 function SetUser(user){
     const UserData={
+    
         email:user.email,
         name:user.name,
         id:user.id,
