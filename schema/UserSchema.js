@@ -11,6 +11,10 @@ const LoginSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    name:{
+        type:String,
+          
+    },
     role:{
         type:String,
         default:"User"

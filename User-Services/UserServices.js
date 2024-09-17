@@ -8,18 +8,17 @@ class UserServices{
         const LoginResult=await LoginSchemas.findOne({email,password})
        if(LoginResult && LoginResult.role=='Admin'){
         const token=await SetUser(LoginResult)
-        return {success:true,message:'Authorized',token,role:"Admin"}
+        return {success:true,message:'Authorized',token,role:"Admin",username:LoginResult.name}
        }
        if(LoginResult && LoginResult.role=='User'){
         const token=await SetUser(LoginResult)
-        return {success:true,message:'Authorized',token,role:"User"}
+        return {success:true,message:'Authorized',token,role:"User",username:LoginResult.name}
        }
        else{
         return {success:false,message:'Un-Auhorized'}
        }
     }catch(error){
         return { success: false, message: error.message };
-        console.log(error)
     }
 }
 }
