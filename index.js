@@ -26,7 +26,9 @@ const LoginMiddleware=require('./middlewares/LoginMiddleware')
 app.use('/Login',LoginMiddleware)
 //ALL ROUTES ARE HERE
 const Login=require('./Routes/Login')
+const AddUser=require('./Routes/NewUser')
 app.use('/Login',Login)
+app.use('/NewUser',AddUser)
 app.listen(port,()=>{
     console.log(`Your App is Running on Port ${port}`)
 
