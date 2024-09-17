@@ -31,6 +31,11 @@ const Cv=require('./Routes/CvDownload')
 app.use('/Login',Login)
 app.use('/NewUser',AddUser)
 app.use('/Cv',Cv)
+
+
+//Routes for Ethers 
+const EthBalanceCheck=require('../node-js/Routes/Web3/Balance')
+app.use('/EthBalanceCheck',EthBalanceCheck)
 app.listen(port,()=>{
     
     console.log(`Your App is Running on Port ${port}`)
