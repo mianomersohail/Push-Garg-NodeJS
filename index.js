@@ -10,12 +10,9 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser())
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-
 app.use(express.static(path.join(__dirname, 'public')));
-
 //MONDO DB CONNECTION 
 const Mongo=new MondoDb();
 if(Mongo.testconnection()!=1){
@@ -28,9 +25,12 @@ app.use('/Login',LoginMiddleware)
 const Login=require('./Routes/Login')
 const AddUser=require('./Routes/NewUser')
 const Cv=require('./Routes/CvDownload')
+const RemoveUser=require('./Routes/NewUser')
 app.use('/Login',Login)
 app.use('/NewUser',AddUser)
 app.use('/Cv',Cv)
+app.use('/RemoveUser',RemoveUser)
+
 
 
 //Routes for Ethers 
