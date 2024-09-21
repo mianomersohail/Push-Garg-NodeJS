@@ -1,4 +1,3 @@
-require('dotenv').config();
 const { ethers } = require('ethers');
 // Infura provider
 const provider = new ethers.JsonRpcProvider('https://sepolia.infura.io/v3/2a1cd244c097446ea9b9db48fff11b05');

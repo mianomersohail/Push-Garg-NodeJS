@@ -8,10 +8,8 @@ class UserBalanceCheck {
     async UserBalanceCheck(req, res) {
         try {
             console.log('Request received');
-            
             // Call the contract's Balances function
             const data = await EthConfig.contract.Balances();
-
             // Log the raw data from the contract
             console.log('Raw data from contract:', data);
 
