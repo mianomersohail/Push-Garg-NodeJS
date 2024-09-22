@@ -4,7 +4,6 @@ constructor(){
 
 }
     async Status(req, res) {
-        console.log('req');
     const { Data } = req.body; // Use the correct variable name
     
     console.log(Data); // Log the incoming data for debugging

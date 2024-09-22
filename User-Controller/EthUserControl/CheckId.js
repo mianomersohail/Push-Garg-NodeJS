@@ -13,10 +13,10 @@ class DealId {
                 console.log('Deal ID (BigInt):', Data);
                 
                 // Convert BigInt to string before sending in JSON
-                const dealIdString = Data.toString();
+                const Id = Data.toString();
                 
                 // Send the stringified deal ID as JSON
-                return res.status(200).json({  dealIdString });
+                return res.status(200).json({  Id });
             }
         } catch (error) {
             console.error('Error fetching deal ID:', error);

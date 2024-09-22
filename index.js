@@ -34,17 +34,21 @@ app.use('/RemoveUser',RemoveUser)
 
 
 
+
+
 //Routes for Ethers 
 const EthBalanceCheck=require('../node-js/Routes/Web3/Balance')
 const NewDeal=require('./Routes/Web3/NewDeal')
 const ID=require('./Routes/Web3/CheckId')
 const Status=require('./Routes/Web3/StatusCheck')
+const LockAmount=require('./Routes/Web3/LockAmount')
 app.use('/EthBalanceCheck',EthBalanceCheck)
 app.use("/NewDeal",NewDeal)
 
 app.use('/DEALS',ID)
 
 app.use("/Status",Status)
+app.use('/LockAmount',LockAmount)
 
 
 app.listen(port,()=>{
