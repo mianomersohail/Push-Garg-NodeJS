@@ -38,9 +38,15 @@ app.use('/RemoveUser',RemoveUser)
 const EthBalanceCheck=require('../node-js/Routes/Web3/Balance')
 const NewDeal=require('./Routes/Web3/NewDeal')
 const ID=require('./Routes/Web3/CheckId')
+const Status=require('./Routes/Web3/StatusCheck')
 app.use('/EthBalanceCheck',EthBalanceCheck)
 app.use("/NewDeal",NewDeal)
+
 app.use('/DEALS',ID)
+
+app.use("/Status",Status)
+
+
 app.listen(port,()=>{
     
     console.log(`Your App is Running on Port ${port}`)
