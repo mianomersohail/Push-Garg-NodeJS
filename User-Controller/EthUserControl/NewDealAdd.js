@@ -22,6 +22,9 @@ class NewDealController {
             const tx = await EthConfig.contract.NewDeal(DealAmount, DealAddress1, DealAddress2);
             // Wait for the transaction to be mined
             const receipt = await tx.wait();
+            if(receipt.error){
+                console.log(MediaError)
+            }
             console.log('Transaction receipt:', receipt);
             // Send the transaction receipt as a response
             return res.status(200).json(receipt);

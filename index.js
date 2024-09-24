@@ -18,8 +18,11 @@ const Mongo=new MondoDb();
 if(Mongo.testconnection()!=1){
     Mongo.connect()
 }
+
 //All Middle wares are imported Here
+const AddRemoveMiddleware=require('./middlewares/Addremove')
 const LoginMiddleware=require('./middlewares/LoginMiddleware')
+app.use(['/NewUser','/RemoveUser'],AddRemoveMiddleware)
 app.use('/Login',LoginMiddleware)
 //ALL ROUTES ARE HERE
 const Login=require('./Routes/Login')
@@ -30,6 +33,7 @@ app.use('/Login',Login)
 app.use('/NewUser',AddUser)
 app.use('/Cv',Cv)
 app.use('/RemoveUser',RemoveUser)
+
 
 
 
@@ -50,8 +54,6 @@ app.use('/DEALS',ID)
 app.use("/Status",Status)
 app.use('/LockAmount',LockAmount)
 app.use('/User1Agree',User1Agree)
-
-
 app.listen(port,()=>{
     
     console.log(`Your App is Running on Port ${port}`)

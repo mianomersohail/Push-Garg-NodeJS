@@ -11,6 +11,7 @@ function SetUser(user){
     
         email:user.email,
         name:user.name,
+        
         id:user.id,
         role:user.role
     }

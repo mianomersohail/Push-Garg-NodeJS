@@ -7,6 +7,7 @@ class AddUserServices{
             password: adduserpassword,
             username: addusername,
             value: adduservalue})
+            
         const AfterSave=await Result.save();
         if(AfterSave){
             return {success:true,message:'User-Save-Successfully'}
@@ -37,4 +38,5 @@ class AddUserServices{
         }
     }
 }
+
 module.exports=AddUserServices;
