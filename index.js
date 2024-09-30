@@ -7,6 +7,11 @@ const cookieparser=require('cookie-parser')
 const port=process.env.PORT || 3002
 const MondoDb=require('./config/MongoDb-Connection')
 app.use(cors())
+const allowedOrigins = ['http://localhost:3000'];
+app.use(cors({
+    origin: allowedOrigins,
+    credentials: true // Allow credentials to be included
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieparser())
@@ -18,29 +23,22 @@ const Mongo=new MondoDb();
 if(Mongo.testconnection()!=1){
     Mongo.connect()
 }
-
 //All Middle wares are imported Here
 const AddRemoveMiddleware=require('./middlewares/Addremove')
 const LoginMiddleware=require('./middlewares/LoginMiddleware')
 app.use(['/NewUser','/RemoveUser'],AddRemoveMiddleware)
-app.use('/Login',LoginMiddleware)
 //ALL ROUTES ARE HERE
 const Login=require('./Routes/Login')
+const NavLogin=require('./Routes/NavLogin')
 const AddUser=require('./Routes/NewUser')
 const Cv=require('./Routes/CvDownload')
 const RemoveUser=require('./Routes/NewUser')
 app.use('/Login',Login)
+app.use('/NavLogin',NavLogin)
 app.use('/NewUser',AddUser)
 app.use('/Cv',Cv)
+
 app.use('/RemoveUser',RemoveUser)
-
-
-
-
-
-
-
-
 //Routes for Ethers 
 const EthBalanceCheck=require('../node-js/Routes/Web3/Balance')
 const NewDeal=require('./Routes/Web3/NewDeal')
