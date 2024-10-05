@@ -1,13 +1,12 @@
 const {LoginSchemas}=require('../schema/UserSchema')
 class AddUserServices{
     constructor(){    }
-    async AddUser(adduseremail,adduserpassword,addusername,adduservalue){
+    async AddUser(adduseremail,adduserpassword){
+        console.log(adduseremail,adduserpassword)
         try{
-        const Result=await new LoginSchemas({ email: adduseremail,
-            password: adduserpassword,
-            username: addusername,
-            value: adduservalue})
-            
+        const Result=await new LoginSchemas({ email:adduseremail,
+            password:adduserpassword,
+            })
         const AfterSave=await Result.save();
         if(AfterSave){
             return {success:true,message:'User-Save-Successfully'}
@@ -18,7 +17,6 @@ class AddUserServices{
     }catch(error){
         return {success:false,errormessage:error.message}
     }
-
     }
     async RemoveUser(email) {
         try {

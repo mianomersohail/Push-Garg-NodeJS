@@ -10,7 +10,7 @@ class MongodbConnection{
     connect(){
         const string=process.env.MONGO_URL;
         mongoose.connect(string,{
-          dbname:"Umer-Portfolio"
+          dbname:"Umer"
         }).then(function(){
           console.log('MondoDb Connected Successfully ')
         }).catch(function(error){

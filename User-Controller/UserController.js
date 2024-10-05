@@ -3,15 +3,14 @@ const UserService=new UserServices()
 class UserController{
     constructor(){
     }
-
+    
     async login(req,res){
         try{
-            
+            console.log("Hello")
         const{email,password}=req.body;
-        if(!email){
-            return (res.status(400).json({message:'Plz-Login'}))
-        }
+        console.log(email,password)
         const Result=await UserService.login(email,password);
+        console.log(Result)
         if(Result.success && Result.role=='Admin'){
             const {message,role}=Result;
             // res.cookie('token', token, {
@@ -21,7 +20,7 @@ class UserController{
             // });
     
             // Return the user data and a success message
-            return res.status(200).json({ message,role,token:Result.token,name:Result.username});
+            return res.status(200).json({ message,role,token:Result.token});
         }
         if(Result.success && Result.role=='User'){
             // res.cookie('token', Result.token, {
@@ -29,7 +28,7 @@ class UserController{
             //     secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
             //     maxAge: 3600000 // 1 hour in milliseconds
             // });
-            return res.status(200).json({message:Result.message,role:Result.role,token:Result.token,name:Result.username})
+            return res.status(200).json({message:Result.message,role:Result.role,token:Result.token})
 
         }
         else{
