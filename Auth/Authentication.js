@@ -3,6 +3,7 @@ const crypto = require('crypto');
 function generateSecret() {
     return crypto.randomBytes(32).toString('hex');
 }
+
 const secret = generateSecret();
 const secrets='umersohail'
 function SetUser(user){
