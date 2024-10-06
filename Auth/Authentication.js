@@ -7,13 +7,10 @@ const secret = generateSecret();
 const secrets='umersohail'
 function SetUser(user){
     const UserData={
-        
-    
         email:user.email,
-        name:user.name,
-        
         id:user.id,
-        role:user.role
+        role:user.role,
+        username:user.username
     }
     return jwt.sign(UserData, secrets);
 }

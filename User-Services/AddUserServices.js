@@ -1,12 +1,13 @@
 const { LoginSchemas } = require('../schema/UserSchema')
 class AddUserServices {
     constructor() { }
-    async AddUser(adduseremail, adduserpassword) {
+    async AddUser(adduseremail, adduserpassword,username) {
         console.log(adduseremail, adduserpassword)
         try {
             const Result = await new LoginSchemas({
                 email: adduseremail,
                 password: adduserpassword,
+                username:username
             })
             const AfterSave = await Result.save();
             if (AfterSave) {

@@ -1,23 +1,20 @@
 const express = require('express');
 const routes = express.Router();
 const { GetUser } = require('../Auth/Authentication');
-
-// Ensure this route is set up correctly
 routes.get('/', async function(req, res) {
     try {
         console.log('Req is Coming')
         const authHeader = req.headers['authorization'];
-        const token = authHeader && authHeader.split(' ')[1]; // Extract token
+        const token = authHeader && authHeader.split(' ')[1]; 
         if (!token) {
-            return res.status(200).json({ message: 'No token provided' }); // Return JSON instead of rendering an HTML page
+            return res.status(200).json({ message: 'No token provided' }); 
         }
         const checktoken = await GetUser(token);
         if (!checktoken) {
             console.log('Invalid or expired token');
-            return res.status(200).json({ message: 'Invalid or expired token' }); // Return JSON for invalid token
+            return res.status(200).json({ message: 'Invalid or expired token' }); 
             }
-        // Send back JSON if authentication is successful
-        console.log('Token is valid');
+        console.log('Token is valid',checktoken);
         return res.status(200).json({ message: 'User authenticated', user: checktoken });
     } catch (error) {
         console.error('Error in /NavLogin:', error);
