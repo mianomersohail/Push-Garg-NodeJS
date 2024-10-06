@@ -1,40 +1,49 @@
-const {LoginSchemas}=require('../schema/UserSchema')
-class AddUserServices{
-    constructor(){    }
-    async AddUser(adduseremail,adduserpassword){
-        console.log(adduseremail,adduserpassword)
-        try{
-        const Result=await new LoginSchemas({ email:adduseremail,
-            password:adduserpassword,
+const { LoginSchemas } = require('../schema/UserSchema')
+class AddUserServices {
+    constructor() { }
+    async AddUser(adduseremail, adduserpassword) {
+        console.log(adduseremail, adduserpassword)
+        try {
+            const Result = await new LoginSchemas({
+                email: adduseremail,
+                password: adduserpassword,
             })
-        const AfterSave=await Result.save();
-        if(AfterSave){
-            return {success:true,message:'User-Save-Successfully'}
+            const AfterSave = await Result.save();
+            if (AfterSave) {
+                return { success: true, message: 'User-Save-Successfully' }
+            }
+            else {
+                return { success: false, message: 'User-Not-Save' }
+            }
+        } catch (error) {
+            return { success: false, errormessage: error.message }
         }
-        else{
-            return {success:false,message:'User-Not-Save'}
-        }
-    }catch(error){
-        return {success:false,errormessage:error.message}
-    }
     }
     async RemoveUser(email) {
         try {
-            // Attempt to find and delete the user by email
-            const Result = await LoginSchemas.findOneAndDelete( email );
-    
-            // Check if the Result is null (i.e., no user found with that email)
+      const Result = await LoginSchemas.findOneAndDelete(email);
             if (!Result) {
-                return { success: false, message: "User not found" }; // Send appropriate error message
+                return { success: false, message: "User not found" };
             }
-    
-            // If the user was found and deleted, return success message
             return { success: true, message: "User deleted successfully" };
         } catch (error) {
-            // Catch any potential errors and return a failure response
-            return { success: false, errormessage: error.message };
+            return { success: false, errormessage: error.message };       }
         }
+    async UpdateUser(req) {
+        const { oldemail, newemail, oldpassword, newpassword, role } = req.body;
+        try {
+            const user = await LoginSchemas.findOne({ email: oldemail, password: oldpassword });
+            if (!user) {
+                return { success: false, message: "User not Found" }
+            }
+            user.email = newemail || user.email;
+            user.password = newpassword || user.password;
+            user.role = role || user.role;
+            await user.save()
+            return { success: true, message: "User Update SUccessfully" }
+        } catch (error) {
+            return { success: false, errormessage: error.message }
+     }
     }
 }
-
-module.exports=AddUserServices;
+module.exports = AddUserServices;

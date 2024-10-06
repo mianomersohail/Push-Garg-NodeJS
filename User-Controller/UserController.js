@@ -20,7 +20,10 @@ class UserController{
             // });
     
             // Return the user data and a success message
-            return res.status(200).json({ message,role,token:Result.token});
+           
+                return res.status(200).json({ message,role,token:Result.token});
+
+            
         }
         if(Result.success && Result.role=='User'){
             // res.cookie('token', Result.token, {
@@ -28,7 +31,11 @@ class UserController{
             //     secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
             //     maxAge: 3600000 // 1 hour in milliseconds
             // });
-            return res.status(200).json({message:Result.message,role:Result.role,token:Result.token})
+            setTimeout(() => {
+                return res.status(200).json({message:Result.message,role:Result.role,token:Result.token})
+
+                
+            }, (6000));
 
         }
         else{
