@@ -9,11 +9,11 @@ class UserServices{
         console.log(LoginResult,'th')
        if(LoginResult && LoginResult.role=='Admin'){
         const token=await SetUser(LoginResult)
-        return {success:true,message:'Authorized',token,role:"Admin",username:LoginResult.username}
+        return {success:true,message:'Authorized',token,role:"Admin",username:LoginResult.username,image: LoginResult.image  }
        }
        if(LoginResult && LoginResult.role=='User'){
         const token=await SetUser(LoginResult)
-        return {success:true,message:'Authorized',token,role:"User",username:LoginResult.username}
+        return {success:true,message:'Authorized',token,role:"User",username:LoginResult.username,image: LoginResult.image  }
        }
        else{
         return {success:false,message:'Un-Auhorized'}

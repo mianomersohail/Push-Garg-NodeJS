@@ -1,13 +1,15 @@
 const { LoginSchemas } = require('../schema/UserSchema')
 class AddUserServices {
     constructor() { }
-    async AddUser(adduseremail, adduserpassword,username) {
+    async AddUser(adduseremail, adduserpassword,username,imagePath) {
         console.log(adduseremail, adduserpassword)
         try {
             const Result = await new LoginSchemas({
                 email: adduseremail,
                 password: adduserpassword,
-                username:username
+                username:username,
+                image: imagePath // Save image path in the database
+
             })
             const AfterSave = await Result.save();
             if (AfterSave) {

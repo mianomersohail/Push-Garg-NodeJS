@@ -7,7 +7,45 @@ const MondoDb = require('./config/MongoDb-Connection');
 
 const app = express();
 const port = process.env.PORT || 3002;
+const multer  = require('multer');
 
+app.use('/uploads', express.static('uploads'));
+
+// Setup multer storage configuration
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // Specify the directory where images will be stored
+        cb(null, './uploads/');
+    },
+    filename: function (req, file, cb) {
+        // Ensure unique file name
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        // Save the file with its original extension
+        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+    }
+});
+
+// Filter only image file types
+const fileFilter = (req, file, cb) => {
+    const allowedFileTypes = /jpeg|jpg|png|gif/;
+    const extname = allowedFileTypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = allowedFileTypes.test(file.mimetype);
+
+    if (mimetype && extname) {
+        return cb(null, true);
+    } else {
+        cb(new Error('Only image files (jpeg, jpg, png, gif) are allowed!'));
+    }
+};
+
+// Set multer upload configurations
+const upload = multer({
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5 // Limit to 5MB
+    },
+    fileFilter: fileFilter
+});
 // Set view engine and views directory
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -15,8 +53,8 @@ app.set('views', path.join(__dirname, 'views'));
 // Middleware
 const AdminMiddleware=require('./middlewares/AdminUser')
 app.use(cors({
-    origin: ['http://localhost:3000'], // Allow requests from frontend
-    credentials: true, // Allow cookies to be sent
+    origin: ['http://localhost:3000'], 
+    credentials: true, 
 }));
 
 
@@ -35,6 +73,7 @@ const Login = require('./Routes/Login');
 const NavLogin = require('./Routes/NavLogin');
 const AddUser = require('./Routes/NewUser');
 const Cv = require('./Routes/CvDownload');
+
 app.use('/Login', Login);
 app.use('/NavLogin', NavLogin);
 app.use('/NewUser', AddUser);
