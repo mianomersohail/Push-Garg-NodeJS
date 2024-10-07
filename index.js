@@ -68,7 +68,7 @@ Mongo.connect(); // Ensure this is properly implemented to connect to your datab
 // Routes
 
 //All MIDDLEWARES FOR USER
-app.use(['/NewUser','/EthBalanceCheck','/NewDeaL','/DEALS','/Status','/LockAmount','/User1Agree'],AdminMiddleware)
+app.use(['/NewUser'],AdminMiddleware)
 const Login = require('./Routes/Login');
 const NavLogin = require('./Routes/NavLogin');
 const AddUser = require('./Routes/NewUser');
