@@ -10,16 +10,12 @@ class UserBalanceCheck {
             console.log('Request received');
             const { Data } = req.body; // Extract user address from request body
             console.log(Data)
-
             // Get the contract instance with the correct signer
             const contract = EthConfig.getContractInstance(); // Adjust if needed
-
             // Call the contract's Balances function
             const data = await contract.Balances(Data); // Call without 'from' option
-
             // Log the raw data from the contract
             console.log('Raw data from contract:', data);
-
             // Check if the returned data is a BigNumber
             if (!ethers.BigNumber.isBigNumber(data)) {
                 throw new Error('Invalid balance data received from the contract');

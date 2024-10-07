@@ -20,16 +20,36 @@ class AddUserServices {
             return { success: false, errormessage: error.message }
         }
     }
-    async RemoveUser(email) {
+    // async RemoveUser(email) {
+    //     try {
+    //   const Result = await LoginSchemas.findOneAndDelete({email:email});
+    //         if (!Result) {
+    //             return { success: false, message: "User not found" };
+    //         }
+    //         return { success: true, message: "User deleted successfully" };
+    //     } catch (error) {
+    //         return { success: false, errormessage: error.message };       }
+    //     }
+    
+    
+    // Call RemoveUser with the exact email you want to delete
+    async RemoveUser(req) {
         try {
-      const Result = await LoginSchemas.findOneAndDelete(email);
+            const email=req.body.removeinput
+            // Attempt to find and delete the user in one step
+            const Result = await LoginSchemas.findOneAndDelete({email:email});
+            console.log(Result)
             if (!Result) {
                 return { success: false, message: "User not found" };
             }
+            
             return { success: true, message: "User deleted successfully" };
         } catch (error) {
-            return { success: false, errormessage: error.message };       }
+            return { success: false, errormessage: error.message };
         }
+    }
+    
+    
     async UpdateUser(req) {
         const { oldemail, newemail, oldpassword, newpassword, role } = req.body;
         try {

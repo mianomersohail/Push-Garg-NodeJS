@@ -13,10 +13,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
 // Middleware
+const AdminMiddleware=require('./middlewares/AdminUser')
 app.use(cors({
     origin: ['http://localhost:3000'], // Allow requests from frontend
     credentials: true, // Allow cookies to be sent
 }));
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -25,16 +28,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 const Mongo = new MondoDb();
 Mongo.connect(); // Ensure this is properly implemented to connect to your database
 // Routes
+
+//All MIDDLEWARES FOR USER
+app.use(['/NewUser','/EthBalanceCheck','/NewDeaL','/DEALS','/Status','/LockAmount','/User1Agree'],AdminMiddleware)
 const Login = require('./Routes/Login');
 const NavLogin = require('./Routes/NavLogin');
 const AddUser = require('./Routes/NewUser');
 const Cv = require('./Routes/CvDownload');
-const RemoveUser = require('./Routes/NewUser'); // Ensure this points to the correct route
 app.use('/Login', Login);
 app.use('/NavLogin', NavLogin);
 app.use('/NewUser', AddUser);
 app.use('/Cv', Cv);
-app.use('/RemoveUser', RemoveUser);
+// app.use('/RemoveUser', RemoveUser);
 
 // Ethereum-related routes
 const EthBalanceCheck = require('../node-js/Routes/Web3/Balance');

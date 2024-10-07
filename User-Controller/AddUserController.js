@@ -20,10 +20,8 @@ class AddUserController {
         }
     }
     async RemoveUser(req, res) {
-        const { email } = req.body;
         try {
-            const Result = await AddUserService.RemoveUser(email);
-            console.log(Result)
+            const Result = await AddUserService.RemoveUser(req);
             if (Result.success) {
                 return res.status(200).json({ message: Result.message, success: true });
             } else {
