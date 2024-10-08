@@ -81,7 +81,6 @@ app.use('/NewUser', AddUser);
 app.use('/Cv', Cv);
 app.use('/TradeSignal',TradeSignal)
 // app.use('/RemoveUser', RemoveUser);
-
 // Ethereum-related routes
 const EthBalanceCheck = require('../node-js/Routes/Web3/Balance');
 const NewDeal = require('./Routes/Web3/NewDeal');

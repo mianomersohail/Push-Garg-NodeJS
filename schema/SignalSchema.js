@@ -2,12 +2,15 @@ const mongoose = require('mongoose');
 
 const SignalSchema = new mongoose.Schema({
     image: { type: String },
-    mainHeading: { type: String, required: true },  // Corrected `typing` to `type`
-    mainDescription: { type: String, required: true }  // Corrected `maindiscription` to `mainDescription`
-}, { timestamps: true });
+    mainHeading: { type: String, required: true },
+    mainDescription: { type: String, required: true }
+}, { timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } });
 
-const SignalModel = mongoose.model('Signal', SignalSchema);  // Updated model name to be more conventional
+// Create a TTL index to expire documents after 1 day (86400 seconds)
+SignalSchema.index({ createdAt: 1 }, { expireAfterSeconds: 86400 });
+
+const SignalModel = mongoose.model('Signal', SignalSchema);
 
 module.exports = {
-    SignalModel  
+    SignalModel
 };

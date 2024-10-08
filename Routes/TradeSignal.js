@@ -1,8 +1,7 @@
 const AddUserController=require('../User-Controller/Tradesignal')
-const express=require('express')
-const router = express.Router();
-
 const AddUserControllers=new AddUserController()
+const express = require('express');
+const router = express.Router();
 const multer = require('multer'); // Add multer here
 const path=require('path')
 const storage = multer.diskStorage({
