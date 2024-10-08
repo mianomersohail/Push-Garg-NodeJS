@@ -1,4 +1,6 @@
 require('dotenv').config();
+const http=require('http')
+const {Server}=require('socket.io')
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -6,6 +8,21 @@ const cookieParser = require('cookie-parser');
 const MondoDb = require('./config/MongoDb-Connection');
 
 const app = express();
+const server=http.createServer(app)
+const io=new Server(server,{
+    cors:{
+        origin:'http://localhost:3000',
+        methods:['GET','POST']
+    }
+})
+io.on('connection',function(socket){
+    console.log("New Connection")
+
+    socket.on('SignalUploaded',function(){
+        io.emit('NewSignal Uploaded')
+
+    })
+})
 const port = process.env.PORT || 3002;
 const multer  = require('multer');
 
@@ -89,6 +106,7 @@ const ID = require('./Routes/Web3/CheckId');
 const Status = require('./Routes/Web3/StatusCheck');
 const LockAmount = require('./Routes/Web3/LockAmount');
 const User1Agree = require('./Routes/Web3/User1Agree');
+const { Socket } = require('dgram');
 app.use('/EthBalanceCheck', EthBalanceCheck);
 app.use('/NewDeal', NewDeal);
 app.use('/DEALS', ID);
@@ -101,6 +119,6 @@ app.use((err, req, res, next) => {
     res.status(500).send('Something broke!');
 });
 // Start server
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Your App is running on port ${port}`);
 });
