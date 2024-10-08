@@ -74,12 +74,13 @@ const NavLogin = require('./Routes/NavLogin');
 const AddUser = require('./Routes/NewUser');
 const Cv = require('./Routes/CvDownload');
 const TradeSignal=require('./Routes/TradeSignal')
-
+const FrontEndSignal=require('./Routes/FrontEndSignal')
 app.use('/Login', Login);
 app.use('/NavLogin', NavLogin);
 app.use('/NewUser', AddUser);
 app.use('/Cv', Cv);
 app.use('/TradeSignal',TradeSignal)
+app.use("/FrontEndSignal",FrontEndSignal)
 // app.use('/RemoveUser', RemoveUser);
 // Ethereum-related routes
 const EthBalanceCheck = require('../node-js/Routes/Web3/Balance');
