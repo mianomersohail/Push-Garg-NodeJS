@@ -1,14 +1,15 @@
 const { LoginSchemas } = require('../schema/UserSchema')
+const { SignalModel } =require('../schema/SignalSchema')
 class AddUserServices {
     constructor() { }
+    
     async AddUser(adduseremail, adduserpassword,username,imagePath) {
-        console.log(adduseremail, adduserpassword)
         try {
             const Result = await new LoginSchemas({
                 email: adduseremail,
                 password: adduserpassword,
                 username:username,
-                image: imagePath // Save image path in the database
+                image: imagePath 
 
             })
             const AfterSave = await Result.save();

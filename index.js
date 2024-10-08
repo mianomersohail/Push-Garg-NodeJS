@@ -73,11 +73,13 @@ const Login = require('./Routes/Login');
 const NavLogin = require('./Routes/NavLogin');
 const AddUser = require('./Routes/NewUser');
 const Cv = require('./Routes/CvDownload');
+const TradeSignal=require('./Routes/TradeSignal')
 
 app.use('/Login', Login);
 app.use('/NavLogin', NavLogin);
 app.use('/NewUser', AddUser);
 app.use('/Cv', Cv);
+app.use('/TradeSignal',TradeSignal)
 // app.use('/RemoveUser', RemoveUser);
 
 // Ethereum-related routes

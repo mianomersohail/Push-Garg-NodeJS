@@ -2,15 +2,14 @@ const AdduserServices = require('../User-Services/AddUserServices')
 const AddUserService = new AdduserServices()
 class AddUserController {
     constructor() { }
+    
     async AddUser(req, res) {
-        console.log(req.body)
         const { adduseremail, adduserpassword, username } = req.body;
-        const userImage = req.file; // Get the uploaded file
+        const userImage = req.file; 
 
         if (!userImage) {
             return res.status(400).json({ message: 'Image is required', success: false });
         }
-        console.log('req')
         try {
             const Result = await AddUserService.AddUser(adduseremail, adduserpassword, username, userImage.path // Save the file path to the database
             );
