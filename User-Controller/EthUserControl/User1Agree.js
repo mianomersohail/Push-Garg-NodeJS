@@ -1,29 +1,19 @@
 const EthConfig = require('../../EthConfig/EthConfig');
-
 class UserAgree {
     constructor() { }
-
     async User1Agree(req, res) {
-        const { Data ,Datas} = req.body;  // Data: dealId, Datas: user address
-        console.log('Data:', Data, 'Datas:', Datas);
-
+        const { Id, Datas } = req.body;
+        console.log(req.body)
+        // console.log('Data:', Data, 'Datas:', Datas);
         try {
-            const dealData = await EthConfig.contract.User2Agree(Data, {
+            const dealData = await EthConfig.contract.User2Agree(Id, {
                 from: Datas
             });
 
-            
-            // Log transaction hash
-            console.log('Transaction hash:', dealData.hash);
-
-            // Wait for the transaction to be mined
+            // console.log('Transaction hash:', dealData.hash);
             const receipt = await dealData.wait();
+            // console.log('Transaction receipt:', receipt);
 
-
-            // Log receipt details
-            console.log('Transaction receipt:', receipt);
-
-            // Respond with the receipt
             res.status(200).send({ message: receipt });
         } catch (error) {
             console.log('Error:', error.message);
