@@ -6,13 +6,10 @@ async function AdminMiddleware(req, res, next) {
         if (!token) {
             return res.status(200).json({ message: 'You are logged out. No token provided.' });
         }
-
         const user =await GetUser(token);
-
         if (!user) {
             return res.status(200).json({ message: 'You are logged out. No token provided.' });
         }
-
         next();
     } catch (error) {
         console.error('Error in AdminMiddleware:', error);
