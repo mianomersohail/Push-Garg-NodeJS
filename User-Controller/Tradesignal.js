@@ -6,7 +6,6 @@ class TradeSignal{
     async AddSignal(req,res){
 
         const userImage = req.file; 
-        console.log(req.file)
         const {maindiscription,mainheading}=req.body;
         if (!userImage) {
             return res.status(400).json({ message: 'Image is required', success: false });
@@ -14,7 +13,6 @@ class TradeSignal{
         try {
             const Result = await AddUserService.AddSignal(maindiscription,mainheading , userImage.path // Save the file path to the database
             );
-            console.log(Result)
             if (Result.success == true) {
                 return res.status(200).json({ message: Result.message, success: Result.success })
             }

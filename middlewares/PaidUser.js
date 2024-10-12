@@ -3,7 +3,7 @@ function PaidUserMiddleware(req,res,next){
     console.log('r')
     const authheader=req.headers['authorization']
     const token=authheader && authheader.split(' ')[1]
-    console.log(token)
+  
    try{
     if(!token){
         res.status(400).error('You are Logout')

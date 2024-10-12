@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
 
+
 const ChatSchemas=new mongoose.Schema({
 chatName:{type:String,trim :true},
 isGrouped:{type:Boolean,default:false},

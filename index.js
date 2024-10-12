@@ -6,7 +6,7 @@ const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const MondoDb = require('./config/MongoDb-Connection');
-
+const NotificationModel=require('./schema/notificationmodel')
 const app = express();
 const server=http.createServer(app)
 const io=new Server(server,{
@@ -15,14 +15,24 @@ const io=new Server(server,{
         methods:['GET','POST']
     }
 })
-io.on('connection',function(socket){
-    console.log("New Connection")
+io.on('connection', function(socket) {
+    console.log('CONNECTED')
+    // When a signal is uploaded, save the notification for each user
+    socket.on('SignalUploaded', async function() { 
+        const result = new NotificationModel({
+            message: 'New Signal Uploaded!',
+              // Store notification for a specific user
+        });
+        await result.save();
+        // Fetch all notifications for the user, both read and unread
+        const userNotifications = await NotificationModel.find({}).sort({ createdAt: -1 });
+        io.emit('NewSignal Uploaded', {
+            message: 'New Signal Uploaded!',
+            notifications: userNotifications
+        });
+    });
+});
 
-    socket.on('SignalUploaded',function(){
-        io.emit('NewSignal Uploaded')
-
-    })
-})
 const port = process.env.PORT || 3002;
 const multer  = require('multer');
 
@@ -92,10 +102,16 @@ const AddUser = require('./Routes/NewUser');
 const Cv = require('./Routes/CvDownload');
 const TradeSignal=require('./Routes/TradeSignal')
 const FrontEndSignal=require('./Routes/FrontEndSignal')
+const UserNavNotfications=require('./Routes/usernotifications')
+
+const UserMessage=require('./Routes/userMessage')
 app.use('/Login', Login);
 app.use('/NavLogin', NavLogin);
 app.use('/NewUser', AddUser);
 app.use('/Cv', Cv);
+app.use('/UserMessage',UserMessage)
+app.use('/Notifications',UserNavNotfications)
+
 app.use('/TradeSignal',TradeSignal)
 app.use("/FrontEndSignal",FrontEndSignal)
 // app.use('/RemoveUser', RemoveUser);
@@ -113,6 +129,7 @@ app.use('/DEALS', ID);
 app.use('/Status', Status);
 app.use('/LockAmount', LockAmount);
 app.use('/User1Agree', User1Agree);
+app.use('/Notifications',UserNavNotfications)
 // Global Error Handling
 app.use((err, req, res, next) => {
     console.error(err.stack);

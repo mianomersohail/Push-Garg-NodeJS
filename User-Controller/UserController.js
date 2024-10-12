@@ -7,13 +7,18 @@ class UserController {
         try {
             const { email, password } = req.body;
             const Result = await UserService.login(email, password);
+            console.log(Result)
             if (Result.success && Result.role == 'Admin') {
                 const { message, role, username } = Result;
-                return res.status(200).json({ message, role, token: Result.token, username: username,image:Result.image });
+                return res.status(200).json({Result})
+
+                // return res.status(200).json({ message, role, token: Result.token, username: username,image:Result.image ,userId:Result._id });
             }
             if (Result.success && Result.role == 'User') {
                 setTimeout(() => {
-                    return res.status(200).json({ message: Result.message, role: Result.role, token: Result.token, username: Result.username,image:Result.image })
+                    return res.status(200).json({Result})
+
+                    // return res.status(200).json({ message: Result.message, role: Result.role, token: Result.token, username: Result.username,image:Result.image ,userId:Result._id, })
 
                 }, (3000));
             }

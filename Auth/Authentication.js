@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 // Ensure the secret key is coming from .env
 const secret = process.env.SECRET;
 function SetUser(user) {
+    try{
     const UserData = {
         email: user.email,
         id: user.id,
@@ -11,6 +12,9 @@ function SetUser(user) {
         username: user.username,
     };
     return jwt.sign(UserData, secret, { expiresIn: '30d' });
+}catch(error){
+    return error
+}
 }
 
 async function GetUser(token) {
