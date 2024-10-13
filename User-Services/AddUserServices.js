@@ -3,13 +3,14 @@ const { SignalModel } =require('../schema/SignalSchema')
 class AddUserServices {
     constructor() { }
     
-    async AddUser(adduseremail, adduserpassword,username,imagePath) {
+    async AddUser(adduseremail, adduserpassword,username,role,imagePath) {
         try {
             const Result = await new LoginSchemas({
                 email: adduseremail,
                 password: adduserpassword,
+                role:role,
                 username:username,
-                image: imagePath 
+                image: imagePath,
 
             })
             const AfterSave = await Result.save();
@@ -56,18 +57,26 @@ class AddUserServices {
     async UpdateUser(req) {
         const { oldemail, newemail, oldpassword, newpassword, role } = req.body;
         try {
-            const user = await LoginSchemas.findOne({ email: oldemail, password: oldpassword });
+            // Find the user by the old email
+            const user = await LoginSchemas.findOne({ email: oldemail });
             if (!user) {
-                return { success: false, message: "User not Found" }
+                return { success: false, message: "User not Found" };
             }
-            user.email = newemail || user.email;
-            user.password = newpassword || user.password;
-            user.role = role || user.role;
-            await user.save()
-            return { success: true, message: "User Update SUccessfully" }
+    
+            // Use set to update only the fields provided
+            if (newemail) user.set({ email: newemail });
+            if (newpassword) user.set({ password: newpassword });
+            if (role) user.set({ role: role });
+    
+            // Save the updated user
+            await user.save();
+    
+            return { success: true, message: "User Updated Successfully" };
         } catch (error) {
-            return { success: false, errormessage: error.message }
-     }
+            return { success: false, errormessage: error.message };
+        }
     }
+    
+    
 }
 module.exports = AddUserServices;

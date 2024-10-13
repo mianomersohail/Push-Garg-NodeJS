@@ -4,14 +4,15 @@ class AddUserController {
     constructor() { }
     
     async AddUser(req, res) {
-        const { adduseremail, adduserpassword, username } = req.body;
+        console.log(req.body)
+        const { adduseremail, adduserpassword, username,role } = req.body;
         const userImage = req.file; 
 
         if (!userImage) {
             return res.status(400).json({ message: 'Image is required', success: false });
         }
         try {
-            const Result = await AddUserService.AddUser(adduseremail, adduserpassword, username, userImage.path // Save the file path to the database
+            const Result = await AddUserService.AddUser(adduseremail,role, adduserpassword, username, userImage.path // Save the file path to the database
             );
             console.log(Result)
             if (Result.success == true) {
@@ -40,12 +41,12 @@ class AddUserController {
         const { oldemail, newemail, oldpassword, newpassword, role } = req.body;
         console.log(req.body)
         try {
-            if (!oldemail || !oldpassword || !newemail || !newpassword || !role) {
+            if (!oldemail || !oldpassword || !newemail || !newpassword ) {
                 return res.status(400).json({ message: 'Old Information is Required' })
             }
-            const Result = await AddUserService.UpdateUser(req, res)
+            const Result = await AddUserService.UpdateUser(req)
             console.log(Result)
-            if (Result.message == 'User Update SUccessfully') {
+            if (Result.message == 'User Updated Successfully') {
                 return res.status(200).json({ success: true, message: "User Update Successfully" })
             }
             else {

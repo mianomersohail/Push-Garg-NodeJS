@@ -103,15 +103,18 @@ const Cv = require('./Routes/CvDownload');
 const TradeSignal=require('./Routes/TradeSignal')
 const FrontEndSignal=require('./Routes/FrontEndSignal')
 const UserNavNotfications=require('./Routes/usernotifications')
-
+const CreateUserOtp=require('./Routes/usersignup')
 const UserMessage=require('./Routes/userMessage')
+const AllUser=require('./Routes/AllUser')
 app.use('/Login', Login);
 app.use('/NavLogin', NavLogin);
 app.use('/NewUser', AddUser);
 app.use('/Cv', Cv);
 app.use('/UserMessage',UserMessage)
-app.use('/Notifications',UserNavNotfications)
+app.use("/AllUser",AllUser)
 
+app.use('/Notifications',UserNavNotfications)
+app.use('/UserOtpCreate',CreateUserOtp)
 app.use('/TradeSignal',TradeSignal)
 app.use("/FrontEndSignal",FrontEndSignal)
 // app.use('/RemoveUser', RemoveUser);
