@@ -1,8 +1,7 @@
 const {LoginSchemas}=require('../schema/UserSchema')
 const {SetUser}=require('../Auth/Authentication')
 class UserServices{
-    constructor(){
-    }
+    constructor(){}
     async login(email,password){
         try{
         const LoginResult=await LoginSchemas.findOne({email:email,password:password})

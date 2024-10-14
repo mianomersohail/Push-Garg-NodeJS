@@ -3,7 +3,7 @@ const { SignalModel } =require('../schema/SignalSchema')
 class AddUserServices {
     constructor() { }
     
-    async AddUser(adduseremail, adduserpassword,username,role,imagePath) {
+    async AddUser(adduseremail, adduserpassword,role,username,imagePath) {
         try {
             const Result = await new LoginSchemas({
                 email: adduseremail,
@@ -63,12 +63,10 @@ class AddUserServices {
                 return { success: false, message: "User not Found" };
             }
     
-            // Use set to update only the fields provided
             if (newemail) user.set({ email: newemail });
             if (newpassword) user.set({ password: newpassword });
             if (role) user.set({ role: role });
     
-            // Save the updated user
             await user.save();
     
             return { success: true, message: "User Updated Successfully" };

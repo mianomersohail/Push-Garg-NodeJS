@@ -7,13 +7,11 @@ routes.post('/', async (req, res) => {
       return res.status(400).send('User not found');
     }
   
-    // Check if the OTP is valid and has not expired
     if (user.otp === otp && user.otpExpiry > Date.now()) {
-      // OTP is valid, proceed to create the user
-      // Remove OTP and expiry from the user
+     
       user.otp = undefined;
       user.otpExpiry = undefined;
-      await user.save(); // Save the user without OTP
+      await user.save(); 
 
       return res.status(200).send('User account created successfully');
     } else {

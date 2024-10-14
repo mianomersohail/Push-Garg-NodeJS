@@ -2,14 +2,14 @@ const express = require('express');
 const router = express.Router();
 const AddUserController = require('../User-Controller/AddUserController');
 const AddUserControllers = new AddUserController();
-const multer = require('multer'); // Add multer here
+const multer = require('multer'); 
 const path=require('path')
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'uploads/'); 
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); // Set a unique filename
+        cb(null, Date.now() + path.extname(file.originalname)); 
     }
 });
 const upload = multer({ storage: storage });

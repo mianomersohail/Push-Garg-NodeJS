@@ -12,7 +12,7 @@ class AddUserController {
             return res.status(400).json({ message: 'Image is required', success: false });
         }
         try {
-            const Result = await AddUserService.AddUser(adduseremail,role, adduserpassword, username, userImage.path // Save the file path to the database
+            const Result = await AddUserService.AddUser(adduseremail, adduserpassword,role, username, userImage.path // Save the file path to the database
             );
             console.log(Result)
             if (Result.success == true) {
@@ -38,7 +38,7 @@ class AddUserController {
         }
     }
     async UpdateUser(req, res) {
-        const { oldemail, newemail, oldpassword, newpassword, role } = req.body;
+        const { oldemail, newemail, oldpassword, role,newpassword } = req.body;
         console.log(req.body)
         try {
             if (!oldemail || !oldpassword || !newemail || !newpassword ) {
