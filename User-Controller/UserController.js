@@ -1,4 +1,5 @@
 const UserServices = require('../User-Services/UserServices')
+const crypto=require('crypto')
 const UserService = new UserServices()
 class UserController {
     constructor() {
@@ -9,7 +10,7 @@ class UserController {
             const { email, password } = req.body;
             const Result = await UserService.login(email, password);
             if (Result.success && Result.role == 'Admin') {
-                const { message, role, username } = Result;
+
                 return res.status(200).json({Result})
             }
             if (Result.success && Result.role == 'User') {

@@ -5,7 +5,7 @@ class AddUserController {
     
     async AddUser(req, res) {
         console.log(req.body)
-        const { adduseremail, adduserpassword, username,role } = req.body;
+        const { adduseremail, adduserpassword,role, username } = req.body;
         const userImage = req.file; 
 
         if (!userImage) {
@@ -14,7 +14,7 @@ class AddUserController {
         try {
             const Result = await AddUserService.AddUser(adduseremail, adduserpassword,role, username, userImage.path // Save the file path to the database
             );
-            console.log(Result)
+          
             if (Result.success == true) {
                 return res.status(200).json({ message: Result.message, success: Result.success })
             }
