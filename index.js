@@ -81,7 +81,12 @@ io.on("connection", function (socket) {
     io.emit("NewSignal Uploaded", { message: "New Signal Uploaded!", notifications: userNotifications });
   });
 
-  socket.on('sendMessage', async function(newMessage, token) {
+  socket.on('sendMessage', async function(newMessage, token) 
+  {
+    const result = new NotificationModel({ message: "New-Message" });
+    await result.save();
+
+
     try {
       const decoded = jwt.verify(token, process.env.SECRET);
       const messageData = {
