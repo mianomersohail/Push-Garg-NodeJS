@@ -5,6 +5,7 @@ const UserMessageSchema = new mongoose.Schema({
     role:{type:String,default:'User'},
     createdAt: { type: Date, default: Date.now },
     id:{type:String},
+    name:{type:String,default:"User"},
     pic: {
         type: String, default:"https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
     }

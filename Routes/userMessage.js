@@ -9,6 +9,7 @@ routes.get('/', async function(req, res) {
     
     // Check if any messages were found
     if (messages && messages.length > 0) {
+      console.log(messages)
       return res.status(200).json({ messages: messages });
     }
     // No messages found

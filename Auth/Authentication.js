@@ -10,6 +10,7 @@ function SetUser(user) {
         id: user.id,
         role: user.role,
         username: user.username,
+        image:user.image
     };
     return jwt.sign(UserData, secret, { expiresIn: '30d' });
 }catch(error){

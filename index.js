@@ -89,19 +89,20 @@ io.on("connection", function (socket) {
 
     try {
       const decoded = jwt.verify(token, process.env.SECRET);
+    console.log(decoded.username)
       const messageData = {
         message: newMessage,
         role: decoded.role || 'User',
         id: decoded.id,
-        pic: 'https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg'
+        name:decoded.username,
+        pic: decoded.image
       };
 
       const result = new UserMessageSchemas(messageData);
       await result.save();
-      console.log('Message saved successfully');
-
+      console.log(newMessage);
       // Broadcast new message to all clients except sender
-      socket.broadcast.emit('receiveMessage', newMessage);
+      socket.broadcast.emit('receiveMessage', newMessage,decoded.username,decoded.image);
     } catch (error) {
       console.error("Error handling sendMessage event:", error);
     }
