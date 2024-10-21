@@ -4,6 +4,7 @@ const LoginSchema = new mongoose.Schema({
         type: String, required: true, unique: true
     },
     password: { type: String, required: true },
+    phone:{type:String},
     role: { type: String, default: "User" },
     username: { type: String, default: "Jack" },
     image: { type: String }

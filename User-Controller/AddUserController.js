@@ -5,14 +5,14 @@ class AddUserController {
     
     async AddUser(req, res) {
         console.log(req.body)
-        const { adduseremail, adduserpassword,role, username } = req.body;
+        const { adduseremail, adduserpassword,phone,role, username } = req.body;
         const userImage = req.file; 
 
         if (!userImage) {
             return res.status(400).json({ message: 'Image is required', success: false });
         }
         try {
-            const Result = await AddUserService.AddUser(adduseremail, adduserpassword,role, username, userImage.path // Save the file path to the database
+            const Result = await AddUserService.AddUser(adduseremail, adduserpassword,phone,role, username, userImage.path // Save the file path to the database
             );
           
             if (Result.success == true) {
@@ -22,6 +22,8 @@ class AddUserController {
                 return res.status(400).json({ message: Result.message, success: Result.success })
             }
         } catch (error) {
+
+            console.log(error)
             return res.status(500).json({ errormessage: Result.errormessage, success: Result.success })
         }
     }

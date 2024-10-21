@@ -4,17 +4,20 @@ const saltRounds = 10; //
 class AddUserServices {
   constructor() {}
 
-  async AddUser(adduseremail, adduserpassword, role, username, imagePath) {
+  async AddUser(adduseremail, adduserpassword,phone, role, username, imagePath) {
+    console.log(phone)
     try {
         const Hasheduserpassword=await bcrypt.hash(adduserpassword,saltRounds)
         console.log(Hasheduserpassword);
       const Result = await new LoginSchemas({
         email: adduseremail,
         password: Hasheduserpassword,
+        phone:phone,
         role: role,
         username: username,
         image: imagePath,
       });
+      
       const AfterSave = await Result.save();
       if (AfterSave) {
         return { success: true, message: "User-Save-Successfully" };
@@ -22,6 +25,7 @@ class AddUserServices {
         return { success: false, message: "User-Not-Save" };
       }
     } catch (error) {
+      console.log(error)
       return { success: false, errormessage: error.message };
     }
   }
