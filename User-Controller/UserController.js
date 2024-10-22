@@ -10,8 +10,12 @@ class UserController {
             const { email, password } = req.body;
             const Result = await UserService.login(email, password);
             if (Result.success && Result.role == 'Admin') {
+              
 
-                return res.status(200).json({Result})
+                    return res.status(200).json({Result})
+              
+                
+
             }
             if (Result.success && Result.role == 'User') {
                     return res.status(200).json({Result})
