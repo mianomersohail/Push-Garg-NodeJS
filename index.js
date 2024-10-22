@@ -155,6 +155,9 @@ app.use((err, req, res, next) => {
 });
 
 // Start server
+app.use("/",function(req,res){
+  res.send("Hello world")
+})
 const port = process.env.PORT || 3002;
 server.listen(port, () => {
   console.log(`Your App is running on port ${port}`);

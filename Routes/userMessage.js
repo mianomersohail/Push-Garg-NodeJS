@@ -9,11 +9,13 @@ routes.get('/', async function(req, res) {
     
     // Check if any messages were found
     if (messages && messages.length > 0) {
-      console.log(messages)
-      return res.status(200).json({ messages: messages });
+      setTimeout(()=>{
+
+        return res.status(200).json({ messages: messages });
+      },7000)
     }
     // No messages found
-    return res.status(404).json({ message: "No messages found" });
+    // return res.status(404).json({ message: "No messages found" });
     
   } catch (error) {
     // Log error to the console and return a server error response

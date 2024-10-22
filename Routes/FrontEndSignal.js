@@ -3,14 +3,15 @@ const router=express.Router()
 const {SignalModel}=require('../schema/SignalSchema')
 router.post('/',async function(req,res){
     try{
-        const Result=await SignalModel.find();
-        console.log(Result)
-        if(Result){
-            res.status(200).json(Result)
+        const Result=await SignalModel.find();        
+         if(Result){
+            setTimeout(()=>{
+                res.status(200).json(Result)
+            },20000)
         }
-        else{
-            res.status(400).json({message:"Result not Fount"})
-        }
+       
+            // res.status(400).json({message:"Result not Fount"})
+        
 
     }catch(error){
         console.log(error)
