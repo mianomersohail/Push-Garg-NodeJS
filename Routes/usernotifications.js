@@ -13,11 +13,8 @@ routes.get('/', async (req, res) => {
     }
 
     try {
-        // Decode the token to get userId
         const decoded = jwt.verify(token, 'ILOVEBITCOIN'); 
         const userId = decoded.id; 
-
-        // Convert userId to ObjectId
         const userObjectId = new mongoose.Types.ObjectId(userId);
 
         console.log(`User ID from token: ${userId}`);

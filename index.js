@@ -56,6 +56,7 @@ const fileFilter = (req, file, cb) => {
   if (mimetype && extname) {
     return cb(null, true);
   } else {
+    
     cb(new Error("Only image files (jpeg, jpg, png, gif) are allowed!"));
   }
 };
@@ -80,7 +81,20 @@ io.on("connection", function (socket) {
     const userNotifications = await NotificationModel.find({}).sort({ createdAt: -1 });
     io.emit("NewSignal Uploaded", { message: "New Signal Uploaded!", notifications: userNotifications });
   });
+//   socket.on("typing", (username) => {
+//     console.log(`${username} is typing...`);
+//     socket.broadcast.emit("displayTyping", { username, isTyping: true });
+// });
+socket.on("typing", (username) => {
+  socket.broadcast.emit("displayTyping", {username, isTyping: true });
+});
 
+
+
+socket.on("userStoppedTyping", (username) => {
+    console.log(`${username} stopped typing`);
+    socket.broadcast.emit("displayTyping", { username, isTyping: false });
+});
   socket.on('sendMessage', async function(newMessage, token) 
   {
     const result = new NotificationModel({ message: "New-Message" });
@@ -103,6 +117,8 @@ io.on("connection", function (socket) {
       console.log(newMessage);
       // Broadcast new message to all clients except sender
       socket.broadcast.emit('receiveMessage', newMessage,decoded.username,decoded.image);
+      socket.broadcast.emit("displayTyping", { username: decoded.username, isTyping: false });
+
     } catch (error) {
       console.error("Error handling sendMessage event:", error);
     }
@@ -153,7 +169,9 @@ app.use((err, req, res, next) => {
   console.error("Global Error:", err.stack);
   res.status(500).send("Something broke!");
 });
-
+if(process.env.NODE_ENV=='production'){
+  app.use(express.static("client"))
+}
 // Start server
 app.use("/",function(req,res){
   res.send("Hello world")

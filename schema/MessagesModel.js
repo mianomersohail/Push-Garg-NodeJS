@@ -8,4 +8,4 @@ const MessagesSchema=new mongoose.Schema({
 
 const MessagesSchemas=mongoose.model("MessagesSchemas",MessagesSchema)
 
-module.exporta=MessagesSchemas;
+module.exports=MessagesSchemas;
