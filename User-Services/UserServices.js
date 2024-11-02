@@ -6,6 +6,7 @@ class UserServices {
     constructor() {}
 
     async login(email, password) {
+        console.log(email,password)
         try {
             // Find the user by email
             const LoginResult = await LoginSchemas.findOne({ email: email });

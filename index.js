@@ -85,15 +85,14 @@ io.on("connection", function (socket) {
 //     console.log(`${username} is typing...`);
 //     socket.broadcast.emit("displayTyping", { username, isTyping: true });
 // });
-socket.on("typing", (username) => {
-  socket.broadcast.emit("displayTyping", {username, isTyping: true });
+socket.on("typing", (username,image) => {
+  console.log(username)
+  console.log(image)
+  socket.broadcast.emit("displayTyping", {username,image, isTyping: true });
 });
-
-
-
-socket.on("userStoppedTyping", (username) => {
-    console.log(`${username} stopped typing`);
-    socket.broadcast.emit("displayTyping", { username, isTyping: false });
+socket.on("userStoppedTyping", (username,image) => {
+    console.log(`${username}${'fd',image} stopped typing`);
+    socket.broadcast.emit("displayTyping", { username,image, isTyping: false });
 });
   socket.on('sendMessage', async function(newMessage, token) 
   {

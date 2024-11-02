@@ -5,8 +5,6 @@ routes.get('/',async function(req,res){
     try{
         const Result=await LoginSchemas.find()
         if(Result){
-            
-
                 res.status(200).json(Result)
         }
         else{
