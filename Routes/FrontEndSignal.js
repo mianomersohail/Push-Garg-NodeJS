@@ -3,10 +3,15 @@ const router=express.Router()
 const {SignalModel}=require('../schema/SignalSchema')
 router.post('/',async function(req,res){
     try{
+        console.log("signalss")
         const Result=await SignalModel.find();        
          if(Result){
-            
+
                 res.status(200).json(Result)
+          
+
+            
+            
            
         }         
 
